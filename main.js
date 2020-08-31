@@ -6,9 +6,14 @@ const util = require('util');
 
 // Convert fs.readFile into Promise version of same    
 const readFile = util.promisify(fs.readFile);
+const writeFile = util.promisify(fs.writeFile);
 
 function loadQuery() {
     return readFile(__dirname + '/sample-queries/essays.graphql');
+}
+
+function writeClass(className, classDefinition) {
+    writeFile(__dirname + '/generated-classes/' + className + '.cs', classDefinition);
 }
 
 async function main() {
@@ -31,7 +36,9 @@ async function main() {
        );
 
       console.log('Essay C# Class');
-      console.log(cSharpQuery.join("\n"));
+      //console.log(cSharpQuery.join("\n"));
+
+      writeClass("Essay", cSharpQuery.join("\n"));
 }
 
 main();
