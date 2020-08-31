@@ -1,0 +1,78 @@
+query EssayQuery($sitecorePath: String, $version: Int) {
+  essay: item(path: $sitecorePath, version: $version) {
+      id
+      title:field(name: "title") {
+        value
+      }
+      body: field(name: "body") {
+        value
+      }
+      citation: field(name: "citation") {
+        value
+      }
+      furtherReading: field(name: "furtherreading") {
+        value
+      }
+      carouselObjectIds: field(name: "carouselobjectids") {
+        value
+      }
+      ...on Essay {
+	    authors {
+          targetItems {
+            id
+			name 
+            authorName:field(name: "name") {
+              value
+            }            
+            affiliation:field(name: "affiliation") {
+              value
+            }
+		  }
+        }
+      }
+      ...on Essay {
+        primaryEssays {
+          targetItems {
+			name        
+            code:field(name: "code") {
+              value
+            }            
+            title:field(name: "title") {
+              value
+            }
+		  }
+        }
+      }
+      ...on Essay {
+        secondaryEssays {
+          targetItems {
+		    name        
+            code:field(name: "code") {
+              value
+            }            
+            title:field(name: "title") {
+              value
+            }
+		  }
+        }
+      }
+      pullquote: field(name: "pullquote") {
+        value
+      }
+      publishingInformation: field(name: "publishinginformation") {
+        value
+      }
+      importedId: field(name: "id") {
+        value
+      }
+      PostId: field(name: "postid") {
+        value
+      }
+      code: field(name: "code") {
+          value
+      }
+      publishedDate: field(name: "__updated") {
+          value
+      }
+	}  
+}
