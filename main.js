@@ -36,9 +36,9 @@ async function main() {
        );
 
       console.log('Essay C# Class');
-      //console.log(cSharpQuery.join("\n"));
 
-      writeClass("Essay", cSharpQuery.join("\n"));
+      let classDefinition = cSharpQuery.join("\n");
+      writeClass("Essay", classDefinition);
 }
 
 main();
