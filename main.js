@@ -1,5 +1,5 @@
 const CmsService = require('./services/cms-service.js');
-const QuickType = require('./services/quicktype-service.js');
+const QuickType = require('./converters/quicktype-converter.js');
 
 const fs = require('fs');
 const util = require('util');
