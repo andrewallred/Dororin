@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.20.0",
+    "lodash": "^4.17.20",
     "quicktype": "^15.0.256",
     "quicktype-core": "^6.0.68"
   }
