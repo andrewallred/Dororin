@@ -10,12 +10,12 @@ const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
 function writeClass(className, classDefinition) {
-    writeFile(__dirname + '/generated-classes/' + className + '.cs', classDefinition);
+    writeFile(__dirname + '/classes/' + className + '.cs', classDefinition);
 }
 
 function main() {
 
-      fs.watch('./sample-queries', (eventType, filename) => {
+      fs.watch('./queries', (eventType, filename) => {
             console.log(filename + ' updated: ' + eventType);
             generateModelFromQuery(filename);
         });
@@ -25,7 +25,7 @@ async function generateModelFromQuery(file) {
 
     let modelName = file.replace('.graphql', '');
     
-    let data = await readFile(__dirname + '/sample-queries/' + file);;
+    let data = await readFile(__dirname + '/queries/' + file);;
     console.log('query data loaded from disk');
     let query = {
         query: data.toString(),
