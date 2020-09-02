@@ -1,4 +1,4 @@
-query EssayQuery($sitecorePath: String, $version: Int) {
+query EssaysQuery($sitecorePath: String, $version: Int) {
   essay: item(path: $sitecorePath, version: $version) {
       id
       title:field(name: "title") {

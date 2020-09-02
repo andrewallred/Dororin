@@ -17,12 +17,6 @@ namespace QuickType
 
     public partial class Essay
     {
-        [JsonProperty("essay")]
-        public EssayClass EssayEssay { get; set; }
-    }
-
-    public partial class EssayClass
-    {
         [JsonProperty("id")]
         public string Id { get; set; }
 

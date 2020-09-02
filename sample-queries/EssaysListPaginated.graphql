@@ -1,0 +1,11 @@
+{
+  search(rootItem: "{BEC93C6E-1EC6-40C4-A0CB-4086ADEA583C}", first: 10, after: "0", fieldsEqual: [{name: "_templatename", value: "Essay"}]) {
+    results {
+      items {
+        code: field(name: "code_t")
+        title: field(name: "title_t")
+        createdDate: field(name: "__smallcreateddate_tdt")
+      }
+    }
+  }
+}
