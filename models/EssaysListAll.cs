@@ -6,7 +6,7 @@
 //
 //    var essaysListAll = EssaysListAll.FromJson(jsonString);
 
-namespace QuickType
+namespace QuickType.EssaysListAll
 {
     using System;
     using System.Collections.Generic;

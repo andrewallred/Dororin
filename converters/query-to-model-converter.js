@@ -54,6 +54,7 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         console.log('saving c# class');
 
         let classDefinition = cSharpClassDefinition.join("\n");
+        classDefinition = classDefinition.replace('namespace QuickType', 'namespace QuickType.' + modelName);
         writeFile(folderModels + modelName + '.cs', classDefinition);
 
         console.log('all done!');

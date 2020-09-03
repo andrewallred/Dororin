@@ -6,7 +6,7 @@
 //
 //    var essaysListPaginated = EssaysListPaginated.FromJson(jsonString);
 
-namespace QuickType
+namespace QuickType.EssaysListPaginated
 {
     using System;
     using System.Collections.Generic;

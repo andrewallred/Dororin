@@ -6,7 +6,7 @@
 //
 //    var essay = Essay.FromJson(jsonString);
 
-namespace QuickType
+namespace QuickType.Essay
 {
     using System;
     using System.Collections.Generic;
