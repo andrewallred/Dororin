@@ -1,5 +1,6 @@
 module.exports = { postQuery };
 
+const https = require('https');
 const axios = require('../node_modules/axios').default;
 
 const cmsQueryUrlDev = 'https://webcmsdev.metmuseum.org/sitecore/api/graph/items/master';
@@ -10,7 +11,10 @@ async function postQuery(environment, query) {
 
     let results = null;
     
-    await axios.post(cmsQueryUrl, query).then((response) => {
+    const instance = axios.create({
+      
+    });
+
     let cmsQueryUrl = null;
     if (environment == "Debug" || environment == "dev" || environment == null) {
       cmsQueryUrl = cmsQueryUrlDev;
