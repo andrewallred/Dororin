@@ -9,6 +9,7 @@ var path = require('path');
 function main() {
 
     let folders = argumentHelper.getFolders();
+    let environment = argumentHelper.getEnvironment();
     if (folders.folderQueries != null && folders.folderModels 
         && fs.existsSync(folders.folderQueries) && fs.existsSync(folders.folderModels)) {
 
@@ -17,7 +18,7 @@ function main() {
                 var ext = path.extname(folders.folderQueries + file);
                 if (ext == '.graphql') {
                     console.log('converting ' + file);
-                    queryToModelConverter.generateModelFromQuery(file, folders.folderQueries, folders.folderModels);
+                    queryToModelConverter.generateModelFromQuery(file, folders.folderQueries, folders.folderModels, environment);
                 }
             });
         });

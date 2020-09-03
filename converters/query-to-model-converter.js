@@ -11,7 +11,7 @@ var _ = require('lodash');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-async function generateModelFromQuery(file, folderQueries, folderModels) {
+async function generateModelFromQuery(file, folderQueries, folderModels, environment) {
 
     let modelName = file.replace('.graphql', '');
     
@@ -25,7 +25,7 @@ async function generateModelFromQuery(file, folderQueries, folderModels) {
 
     console.log('running query');
 
-    let queryResults = await CmsService.postQuery(query);
+    let queryResults = await CmsService.postQuery(environment, query);
 
     console.log('query successful');
 

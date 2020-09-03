@@ -9,6 +9,7 @@ var path = require('path');
 function main() {
 
     let folders = argumentHelper.getFolders();
+    let environment = argumentHelper.getEnvironment();
     if (folders.folderQueries != null && folders.folderModels 
         && fs.existsSync(folders.folderQueries) && fs.existsSync(folders.folderModels)) {
         console.log('dororin is now watching folder ' + folders.folderQueries)
@@ -18,7 +19,7 @@ function main() {
                 var ext = path.extname(folders.folderQueries + filename);
                 if (ext == '.graphql') {
                     console.log(filename + ' updated: ' + eventType);
-                    queryToModelConverter.generateModelFromQuery(filename, folders.folderQueries, folders.folderModels);
+                    queryToModelConverter.generateModelFromQuery(filename, folders.folderQueries, folders.folderModels, environment);
                 }
             });
     }
