@@ -71,6 +71,9 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
             console.log('writing the model');
             writeFile(modelFilePath, classDefinition);
         }
+        else {
+            console.log('not writing to disk, no changes to the model');
+        }
 
         console.log('all done!');
     }
