@@ -14,5 +14,8 @@
     "lodash": "^4.17.20",
     "quicktype": "^15.0.256",
     "quicktype-core": "^6.0.68"
+  },
+  "bin": {
+    "watch-queries": "./main.js"
   }
 }
