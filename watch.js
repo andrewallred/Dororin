@@ -26,7 +26,7 @@ function main() {
         console.log('dororin is now watching folder ' + folderQueries)
 
         if (folderModels == null || folderModels == '') {
-            folderModels = './classes/';
+            folderModels = './models/';
         }
 
         if (folderModels.charAt(folderModels.length - 1) != '/') {
