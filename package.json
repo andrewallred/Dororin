@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node main.js ./queries"
+    "build": "node watch.js ./queries"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +16,6 @@
     "quicktype-core": "^6.0.68"
   },
   "bin": {
-    "watch-queries": "./main.js"
+    "watch-queries": "./watch.js"
   }
 }
