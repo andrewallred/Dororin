@@ -1,3 +1,5 @@
+#! /usr/bin/env node
+
 const CmsService = require('./services/cms-service.js');
 const QuickType = require('./converters/quicktype-converter.js');
 
