@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node watch.js ./queries ./models",
-    "convert": "node convert.js ./queries ./models"
+    "batch": "node batch.js ./queries ./models"
   },
   "author": "",
   "license": "ISC",
@@ -18,6 +18,6 @@
   },
   "bin": {
     "doro-watch": "./watch.js",
-    "doro-convert": "./convert.js"
+    "doro-batch": "./batch.js"
   }
 }
