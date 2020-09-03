@@ -5,7 +5,7 @@ const QuickType = require('./quicktype-converter.js');
 
 const fs = require('fs');
 const util = require('util');
-var _ = require('lodash');
+const _ = require('lodash');
 
 // Convert fs.readFile into Promise version of same    
 const readFile = util.promisify(fs.readFile);

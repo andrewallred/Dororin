@@ -4,7 +4,7 @@ const queryToModelConverter = require('./converters/query-to-model-converter.js'
 const argumentHelper = require('./helpers/argument-helper.js');
 
 const fs = require('fs');
-var path = require('path');
+const path = require('path');
 
 function main() {
 

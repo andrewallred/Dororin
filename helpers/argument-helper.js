@@ -2,9 +2,9 @@ module.exports = { getFolders, getEnvironment };
 
 function getFolders() {
     // folder to look for queries
-    var folderQueries = process.argv[2];
+    let folderQueries = process.argv[2];
     // folder to save generated models
-    var folderModels = process.argv[3];
+    let folderModels = process.argv[3];
     if (folderQueries != null) {
 
         if (folderQueries.charAt(folderQueries.length - 1) != '/') {
