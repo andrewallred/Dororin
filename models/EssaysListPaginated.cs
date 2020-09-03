@@ -6,7 +6,7 @@
 //
 //    var essaysListPaginated = EssaysListPaginated.FromJson(jsonString);
 
-namespace QuickType.EssaysListPaginated
+namespace Dororin.EssaysListPaginated
 {
     using System;
     using System.Collections.Generic;
@@ -41,12 +41,12 @@ namespace QuickType.EssaysListPaginated
 
     public partial class EssaysListPaginated
     {
-        public static EssaysListPaginated FromJson(string json) => JsonConvert.DeserializeObject<EssaysListPaginated>(json, QuickType.Converter.Settings);
+        public static EssaysListPaginated FromJson(string json) => JsonConvert.DeserializeObject<EssaysListPaginated>(json, Dororin.EssaysListPaginated.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this EssaysListPaginated self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
+        public static string ToJson(this EssaysListPaginated self) => JsonConvert.SerializeObject(self, Dororin.EssaysListPaginated.Converter.Settings);
     }
 
     internal static class Converter

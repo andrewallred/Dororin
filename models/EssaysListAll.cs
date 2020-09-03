@@ -6,7 +6,7 @@
 //
 //    var essaysListAll = EssaysListAll.FromJson(jsonString);
 
-namespace QuickType.EssaysListAll
+namespace Dororin.EssaysListAll
 {
     using System;
     using System.Collections.Generic;
@@ -41,12 +41,12 @@ namespace QuickType.EssaysListAll
 
     public partial class EssaysListAll
     {
-        public static EssaysListAll FromJson(string json) => JsonConvert.DeserializeObject<EssaysListAll>(json, QuickType.Converter.Settings);
+        public static EssaysListAll FromJson(string json) => JsonConvert.DeserializeObject<EssaysListAll>(json, Dororin.EssaysListAll.Converter.Settings);
     }
 
     public static class Serialize
     {
-        public static string ToJson(this EssaysListAll self) => JsonConvert.SerializeObject(self, QuickType.Converter.Settings);
+        public static string ToJson(this EssaysListAll self) => JsonConvert.SerializeObject(self, Dororin.EssaysListAll.Converter.Settings);
     }
 
     internal static class Converter
