@@ -56,7 +56,11 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         let classDefinition = cSharpClassDefinition.join("\n");
         classDefinition = classDefinition.replace('namespace QuickType', 'namespace Dororin.' + modelName);
         classDefinition = classDefinition.replace(/QuickType.Converter/g, 'Dororin.' + modelName + '.Converter');
-        writeFile(folderModels + modelName + '.cs', classDefinition);
+
+        let modelFilePath = folderModels + modelName + '.cs'
+        if (!fs.existsSync(modelFilePath) || (await readFile(modelFilePath)) != classDefinition) {
+            writeFile(modelFilePath, classDefinition);
+        }
 
         console.log('all done!');
     }
