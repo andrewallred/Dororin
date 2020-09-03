@@ -57,8 +57,18 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         classDefinition = classDefinition.replace('namespace QuickType', 'namespace Dororin.' + modelName);
         classDefinition = classDefinition.replace(/QuickType.Converter/g, 'Dororin.' + modelName + '.Converter');
 
-        let modelFilePath = folderModels + modelName + '.cs'
-        if (!fs.existsSync(modelFilePath) || (await readFile(modelFilePath)) != classDefinition) {
+        let modelFilePath = folderModels + modelName + '.cs';
+        let writeModel = false;
+        if (!fs.existsSync(modelFilePath)) {
+            console.log('model does not exist');
+            writeModel = true;
+        }
+        else {
+            let existingModelDefinition = await readFile(modelFilePath);
+            writeModel = existingModelDefinition != classDefinition
+        }
+        if (writeModel) {
+            console.log('writing the model');
             writeFile(modelFilePath, classDefinition);
         }
 
