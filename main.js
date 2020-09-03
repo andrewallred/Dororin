@@ -18,6 +18,11 @@ function main() {
     // folder to save generated models
     var folderModels = process.argv[3];
     if (folderQueries != null && fs.existsSync(folderQueries)) {
+
+        if (folderQueries.charAt(folderQueries.length - 1) != '/') {
+            folderQueries = folderQueries + '/';
+        }
+
         console.log('dororin is now watching folder ' + folderQueries)
 
         if (folderModels == null || folderModels == '') {
@@ -32,7 +37,7 @@ function main() {
 
         fs.watch(folderQueries, (eventType, filename) => {
                 console.log(filename + ' updated: ' + eventType);
-                generateModelFromQuery(filename, folderModels);
+                generateModelFromQuery(filename, folderQueries, folderModels);
             });
     }
     else {
@@ -41,11 +46,11 @@ function main() {
     
 }
 
-async function generateModelFromQuery(file, folderModels) {
+async function generateModelFromQuery(file, folderQueries, folderModels) {
 
     let modelName = file.replace('.graphql', '');
     
-    let data = await readFile(__dirname + '/queries/' + file);;
+    let data = await readFile(folderQueries + file);;
     console.log('query data loaded from disk');
     let query = {
         query: data.toString(),
