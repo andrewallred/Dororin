@@ -10,18 +10,19 @@ function main() {
     let folders = argumentHelper.getFolders();
     if (folders.folderQueries != null && folders.folderModels 
         && fs.existsSync(folders.folderQueries) && fs.existsSync(folders.folderModels)) {
-        console.log('dororin is now watching folder ' + folders.folderQueries)
-        console.log('dororin is saving models to ' + folders.folderModels);
 
-        fs.watch(folders.folderQueries, (eventType, filename) => {
-                console.log(filename + ' updated: ' + eventType);
-                queryToModelConverter.generateModelFromQuery(filename, folders.folderQueries, folders.folderModels);
+        fs.readdir(folders.folderQueries, (err, files) => {
+            files.forEach(file => {
+                console.log('converting ' + file);
+                queryToModelConverter.generateModelFromQuery(file, folders.folderQueries, folders.folderModels);
             });
+        });
+
     }
     else {
         console.log('please pass an existing folder to dororin');
     }
-    
+
 }
 
 main();
