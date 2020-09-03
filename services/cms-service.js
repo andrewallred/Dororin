@@ -12,7 +12,9 @@ async function postQuery(environment, query) {
     let results = null;
     
     const instance = axios.create({
-      
+      httpsAgent: new https.Agent({  
+        rejectUnauthorized: false
+      })
     });
 
     let cmsQueryUrl = null;
