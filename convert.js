@@ -4,6 +4,7 @@ const queryToModelConverter = require('./converters/query-to-model-converter.js'
 const argumentHelper = require('./helpers/argument-helper.js');
 
 const fs = require('fs');
+var path = require('path');
 
 function main() {
 
@@ -13,8 +14,11 @@ function main() {
 
         fs.readdir(folders.folderQueries, (err, files) => {
             files.forEach(file => {
-                console.log('converting ' + file);
-                queryToModelConverter.generateModelFromQuery(file, folders.folderQueries, folders.folderModels);
+                var ext = path.extname(folders.folderQueries + file);
+                if (ext == '.graphql') {
+                    console.log('converting ' + file);
+                    queryToModelConverter.generateModelFromQuery(file, folders.folderQueries, folders.folderModels);
+                }
             });
         });
 
