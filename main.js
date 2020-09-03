@@ -9,19 +9,37 @@ var _ = require('lodash');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-function writeClass(className, classDefinition) {
-    writeFile(__dirname + '/classes/' + className + '.cs', classDefinition);
-}
-
 function main() {
 
-      fs.watch('./queries', (eventType, filename) => {
-            console.log(filename + ' updated: ' + eventType);
-            generateModelFromQuery(filename);
-        });
+    // folder to look for queries
+    var folderQueries = process.argv[2];
+    // folder to save generated models
+    var folderModels = process.argv[3];
+    if (folderQueries != null && fs.existsSync(folderQueries)) {
+        console.log('dororin is now watching folder ' + folderQueries)
+
+        if (folderModels == null || folderModels == '') {
+            folderModels = './classes/';
+        }
+
+        if (folderModels.charAt(folderModels.length - 1) != '/') {
+            folderModels = folderModels + '/';
+        }
+
+        console.log('dororin is saving models to ' + folderModels);
+
+        fs.watch(folderQueries, (eventType, filename) => {
+                console.log(filename + ' updated: ' + eventType);
+                generateModelFromQuery(filename, folderModels);
+            });
+    }
+    else {
+        console.log('please pass an existing folder to dororin');
+    }
+    
 }
 
-async function generateModelFromQuery(file) {
+async function generateModelFromQuery(file, folderModels) {
 
     let modelName = file.replace('.graphql', '');
     
@@ -51,6 +69,7 @@ async function generateModelFromQuery(file) {
         }
         else {
             // TODO throw an error here
+            console.error("could not find query results in data!!!")
         }
 
         console.log('converting query to c# class');
@@ -63,13 +82,14 @@ async function generateModelFromQuery(file) {
         console.log('saving c# class');
 
         let classDefinition = cSharpClassDefinition.join("\n");
-        writeClass(modelName, classDefinition);
+        writeFile(folderModels + modelName + '.cs', classDefinition);
+
+        console.log('all done!');
     }
     else {
         console.log(queryResults.data.errors);
     }
 
-    
 }
 
 main();
