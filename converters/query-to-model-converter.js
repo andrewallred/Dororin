@@ -64,8 +64,8 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
             writeModel = true;
         }
         else {
-            let existingModelDefinition = await readFile(modelFilePath.toString());
-            writeModel = existingModelDefinition != classDefinition;
+            let existingModelDefinition = await readFile(modelFilePath);
+            writeModel = existingModelDefinition.toString() != classDefinition;
             if (writeModel) {
                 console.log('existing model');
                 console.log(existingModelDefinition);
