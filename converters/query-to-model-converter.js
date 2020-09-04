@@ -53,6 +53,8 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 
         console.log('saving c# class');
 
+        // note, we are using the OS specific new line here so that git doesn't get confused
+        // may not work as we like cross-OS though...
         let classDefinition = cSharpClassDefinition.join(require('os').EOL);
         classDefinition = classDefinition.replace('namespace QuickType', 'namespace Dororin.' + modelName);
         classDefinition = classDefinition.replace(/QuickType.Converter/g, 'Dororin.' + modelName + '.Converter');
