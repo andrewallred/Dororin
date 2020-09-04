@@ -11,6 +11,8 @@ const _ = require('lodash');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
+const logDiagnosticInfo = false;
+
 async function generateModelFromQuery(file, folderQueries, folderModels, environment) {
 
     let modelName = file.replace('.graphql', '');
@@ -68,7 +70,7 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         else {
             let existingModelDefinition = await readFile(modelFilePath);
             writeModel = existingModelDefinition.toString() != classDefinition;
-            if (writeModel) {
+            if (logDiagnosticInfo && writeModel) {
                 console.log('existing model');
                 console.log(existingModelDefinition.toString());
                 console.log('new model');
