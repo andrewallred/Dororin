@@ -25,6 +25,7 @@ async function quicktypeJSON(targetLanguage, typeName, jsonString) {
     return await quicktype({
       inputData,
       lang: targetLanguage,
+      combineClasses: false
     });
 }
   
