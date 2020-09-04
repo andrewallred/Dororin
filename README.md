@@ -4,6 +4,10 @@ Quick Proof of Concept to generate C# classes from GraphQL queries.
 
 ![Dororin](dororin.jpeg)
 
+## What does Dororin do?
+
+Dororin converts graphql queries to C# classes, running the queries against a Met CMS (dev, staging, or prod) and then using QuickType to turn the results into models.
+
 ## Using Dororin
 
 You can install Dororin using NPM as so
