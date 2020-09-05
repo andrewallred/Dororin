@@ -1,4 +1,4 @@
-module.exports = { getFolders, getEnvironment };
+module.exports = { getFolders, getEnvironment, getFile };
 
 function getFolders() {
     // folder to look for queries
@@ -28,5 +28,10 @@ function getFolders() {
 
 function getEnvironment() {
     let environment = process.argv[4];
+    return environment;
+}
+
+function getFile() {
+    let environment = process.argv[5];
     return environment;
 }
