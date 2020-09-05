@@ -21,43 +21,93 @@ namespace Dororin.Essay
         public string Id { get; set; }
 
         [JsonProperty("title")]
-        public object Title { get; set; }
+        public string Title { get; set; }
 
         [JsonProperty("body")]
-        public object Body { get; set; }
+        public string Body { get; set; }
 
         [JsonProperty("citation")]
-        public object Citation { get; set; }
+        public string Citation { get; set; }
 
         [JsonProperty("furtherReading")]
-        public object FurtherReading { get; set; }
+        public string FurtherReading { get; set; }
 
         [JsonProperty("carouselObjectIds")]
-        public object CarouselObjectIds { get; set; }
+        public string CarouselObjectIds { get; set; }
+
+        [JsonProperty("authors")]
+        public Authors Authors { get; set; }
+
+        [JsonProperty("primaryEssays")]
+        public PrimaryEssays PrimaryEssays { get; set; }
+
+        [JsonProperty("secondaryEssay")]
+        public SecondaryEssay SecondaryEssay { get; set; }
 
         [JsonProperty("pullquote")]
-        public object Pullquote { get; set; }
+        public string Pullquote { get; set; }
 
         [JsonProperty("publishingInformation")]
-        public object PublishingInformation { get; set; }
+        public string PublishingInformation { get; set; }
 
         [JsonProperty("importedId")]
-        public object ImportedId { get; set; }
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long ImportedId { get; set; }
 
         [JsonProperty("PostId")]
-        public object PostId { get; set; }
+        [JsonConverter(typeof(ParseStringConverter))]
+        public long PostId { get; set; }
 
         [JsonProperty("code")]
-        public object Code { get; set; }
+        public string Code { get; set; }
 
         [JsonProperty("publishedDate")]
-        public PublishedDate PublishedDate { get; set; }
+        public string PublishedDate { get; set; }
     }
 
-    public partial class PublishedDate
+    public partial class Authors
     {
-        [JsonProperty("value")]
-        public string Value { get; set; }
+        [JsonProperty("author")]
+        public Author[] Author { get; set; }
+    }
+
+    public partial class Author
+    {
+        [JsonProperty("id")]
+        public string Id { get; set; }
+
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("authorName")]
+        public string AuthorName { get; set; }
+
+        [JsonProperty("affiliation")]
+        public string Affiliation { get; set; }
+    }
+
+    public partial class PrimaryEssays
+    {
+        [JsonProperty("primaryEssay")]
+        public PrimaryEssay[] PrimaryEssay { get; set; }
+    }
+
+    public partial class PrimaryEssay
+    {
+        [JsonProperty("name")]
+        public string Name { get; set; }
+
+        [JsonProperty("code")]
+        public string Code { get; set; }
+
+        [JsonProperty("title")]
+        public string Title { get; set; }
+    }
+
+    public partial class SecondaryEssay
+    {
+        [JsonProperty("targetItems")]
+        public PrimaryEssay[] TargetItems { get; set; }
     }
 
     public partial class Essay
@@ -81,5 +131,36 @@ namespace Dororin.Essay
                 new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }
             },
         };
+    }
+
+    internal class ParseStringConverter : JsonConverter
+    {
+        public override bool CanConvert(Type t) => t == typeof(long) || t == typeof(long?);
+
+        public override object ReadJson(JsonReader reader, Type t, object existingValue, JsonSerializer serializer)
+        {
+            if (reader.TokenType == JsonToken.Null) return null;
+            var value = serializer.Deserialize<string>(reader);
+            long l;
+            if (Int64.TryParse(value, out l))
+            {
+                return l;
+            }
+            throw new Exception("Cannot unmarshal type long");
+        }
+
+        public override void WriteJson(JsonWriter writer, object untypedValue, JsonSerializer serializer)
+        {
+            if (untypedValue == null)
+            {
+                serializer.Serialize(writer, null);
+                return;
+            }
+            var value = (long)untypedValue;
+            serializer.Serialize(writer, value.ToString());
+            return;
+        }
+
+        public static readonly ParseStringConverter Singleton = new ParseStringConverter();
     }
 }
