@@ -36,7 +36,12 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 
     console.log('query successful');
 
-    let queryResultsData = queryResults.data.data; 
+    let queryResultsData = queryResults.data.data;     
+    queryResultsData = restructureObject(queryResultsData);
+    if (logDiagnosticInfo) {
+        console.log('restructured query results data');
+        console.log(JSON.stringify(queryResultsData));
+    }
     if (queryResults.data.errors == null) {
         
         let objectToConvert = null;
@@ -96,4 +101,26 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         console.log(queryResults.data.errors);
     }
 
+}
+
+function restructureObject(obj, key) {
+    if (obj != null) {
+        if (Object.keys(obj).length == 1 && Object.keys(obj)[0] == 'value') {
+            obj = obj.value;
+        }
+        else if (Object.keys(obj).length > 0 && Object.keys(obj)[0] != '0') {
+            Object.keys(obj).forEach(function(currentKey,index) {
+                // key: the name of the object key
+                // index: the ordinal position of the key within the object 
+                if (obj[currentKey] != null && Array.isArray(obj[currentKey])) {
+                    obj[currentKey].forEach(function(item) {
+                        obj[currentKey][index] = restructureObject(item, currentKey);
+                    });
+                } else {
+                    obj[currentKey] = restructureObject(obj[currentKey], currentKey);
+                }
+            });  
+        }  
+    }
+    return obj;
 }
