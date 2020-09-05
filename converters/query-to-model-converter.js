@@ -29,6 +29,11 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 
     let queryResults = await CmsService.postQuery(environment, query);
 
+    if (logDiagnosticInfo) {
+        console.log('query results for ' + modelName);
+        console.log(queryResults.data.data);
+    }
+
     console.log('query successful');
 
     let queryResultsData = queryResults.data.data; 
