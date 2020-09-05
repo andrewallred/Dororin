@@ -32,7 +32,7 @@ query EssaysQuery($sitecorePath: String, $version: Int) {
       }
       ...on Essay {
         primaryEssays {
-          primaryEssay: targetItems {
+          essayLinks: targetItems {
 			name        
             code:field(name: "code") {
               value
@@ -45,7 +45,7 @@ query EssaysQuery($sitecorePath: String, $version: Int) {
       }
       ...on Essay {
         secondaryEssays {
-          secondaryEssay: targetItems {
+          essayLinks: targetItems {
 		    name        
             code:field(name: "code") {
               value

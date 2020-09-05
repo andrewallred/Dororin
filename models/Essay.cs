@@ -41,8 +41,8 @@ namespace Dororin.Essay
         [JsonProperty("primaryEssays")]
         public PrimaryEssays PrimaryEssays { get; set; }
 
-        [JsonProperty("secondaryEssay")]
-        public SecondaryEssay SecondaryEssay { get; set; }
+        [JsonProperty("secondaryEssays")]
+        public SecondaryEssays SecondaryEssays { get; set; }
 
         [JsonProperty("pullquote")]
         public string Pullquote { get; set; }
@@ -88,11 +88,11 @@ namespace Dororin.Essay
 
     public partial class PrimaryEssays
     {
-        [JsonProperty("primaryEssay")]
-        public PrimaryEssay[] PrimaryEssay { get; set; }
+        [JsonProperty("essayLinks")]
+        public EssayLink[] EssayLinks { get; set; }
     }
 
-    public partial class PrimaryEssay
+    public partial class EssayLink
     {
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -104,10 +104,10 @@ namespace Dororin.Essay
         public string Title { get; set; }
     }
 
-    public partial class SecondaryEssay
+    public partial class SecondaryEssays
     {
-        [JsonProperty("targetItems")]
-        public PrimaryEssay[] TargetItems { get; set; }
+        [JsonProperty("essayLinks")]
+        public EssayLink[] EssayLinks { get; set; }
     }
 
     public partial class Essay
