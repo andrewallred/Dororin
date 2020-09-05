@@ -112,6 +112,7 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 
 }
 
+// TODO: possibly make this more abstract instead of only working in the "value" case
 function restructureObject(obj, key) {
     if (obj != null) {
         if (Object.keys(obj).length == 1 && Object.keys(obj)[0] == 'value') {
