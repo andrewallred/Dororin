@@ -17,12 +17,21 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 
     let modelName = file.replace('.graphql', '');
     
-    let data = await readFile(folderQueries + file);;
+    let data = await readFile(folderQueries + file);
     console.log('query data loaded from disk');
+    let variablesData = null;
+    let variablesFile = folderQueries + file.replace('graphql', 'gex');
+    console.log(variablesFile);
+    if (fs.existsSync(variablesFile)) {
+        variablesData = await readFile(variablesFile);
+        variablesData = variablesData.toString();
+        console.log('query data loaded from disk')
+        console.log(variablesData);
+    }
     let query = {
         query: data.toString(),
         operationName: null,
-        variables: null
+        variables: variablesData
     };
 
     console.log('running query');
