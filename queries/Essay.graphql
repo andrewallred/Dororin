@@ -18,7 +18,7 @@ query EssaysQuery($sitecorePath: String, $version: Int) {
       }
       ...on Essay {
 	    authors {
-          targetItems {
+          author: targetItems {
             id
 			name 
             authorName:field(name: "name") {
@@ -32,7 +32,7 @@ query EssaysQuery($sitecorePath: String, $version: Int) {
       }
       ...on Essay {
         primaryEssays {
-          targetItems {
+          primaryEssay: targetItems {
 			name        
             code:field(name: "code") {
               value
@@ -45,7 +45,7 @@ query EssaysQuery($sitecorePath: String, $version: Int) {
       }
       ...on Essay {
         secondaryEssays {
-          targetItems {
+          secondaryEssay: targetItems {
 		    name        
             code:field(name: "code") {
               value
