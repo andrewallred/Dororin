@@ -31,6 +31,16 @@ doro-batch ../queries ../models Debug
 
 In both examples above the Debug parameter tells Dororin to run its queries against the dev CMS (https://webcmsdev.metmuseum.org). The possible choices are: Debug, dev, Staging, stg, Release, prod, and production. If no value is passed Dororin will default to using the dev CMS.
 
+### Passing Variables to a Dororin Query
+
+To ensre Dororin pulls the best possible data for your model, you can specify a variable file (.gec) that will be loaded and used when it's associated query is run. Below you will see Essay.gec, which is used to specify the sitecorePath variable in the Essay.graphql query.
+
+```
+{
+"sitecorePath": "/sitecore/content/Resources/Content/Collections/Timeline/Essays/2020/03/03/00/07/african-rock-art"
+}
+```
+
 ## Developing Dororin Locally
 
 TODO
