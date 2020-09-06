@@ -11,7 +11,7 @@ const _ = require('lodash');
 const readFile = util.promisify(fs.readFile);
 const writeFile = util.promisify(fs.writeFile);
 
-const logDiagnosticInfo = false;
+const logDiagnosticInfo = true;
 
 async function generateModelFromQuery(file, folderQueries, folderModels, environment) {
 
