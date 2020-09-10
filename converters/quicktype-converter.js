@@ -8,7 +8,7 @@ const {
     JSONSchemaStore,
   } = require("quicktype-core");
   
-async function quicktypeJSON(targetLanguage, typeName, jsonString) {
+async function quicktypeJSON(targetLanguage, typeName, nameSpace, jsonString) {
     const jsonInput = jsonInputForTargetLanguage(targetLanguage);
   
     // We could add multiple samples for the same desired
@@ -25,7 +25,10 @@ async function quicktypeJSON(targetLanguage, typeName, jsonString) {
     return await quicktype({
       inputData,
       lang: targetLanguage,
-      combineClasses: false
+      combineClasses: false,
+      rendererOptions: {
+        namespace: nameSpace
+      }
     });
 }
   

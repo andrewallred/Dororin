@@ -65,10 +65,13 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
             console.error("could not find query results in data!!!")
         }
 
+        let nameSpace = 'Dororin.' + modelName;
+
         console.log('converting query to c# class');
         const { lines: cSharpClassDefinition } = await QuickType.quicktypeJSON(
             "csharp",
             modelName,
+            nameSpace,
             JSON.stringify(objectToConvert)
         );
 
@@ -77,9 +80,7 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         // note, we are using the OS specific new line here so that git doesn't get confused
         // may not work as we like cross-OS though...
         let classDefinition = cSharpClassDefinition.join(require('os').EOL);
-        classDefinition = classDefinition.replace('namespace QuickType', 'namespace Dororin.' + modelName);
-        classDefinition = classDefinition.replace(/QuickType.Converter/g, 'Dororin.' + modelName + '.Converter');
-
+        
         let modelFilePath = folderModels + modelName + '.cs';
         let writeModel = false;
         if (!fs.existsSync(modelFilePath)) {
