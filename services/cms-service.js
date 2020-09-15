@@ -18,7 +18,7 @@ async function postQuery(environment, query) {
     });
 
     let cmsQueryUrl = null;
-    if (environment == "Debug" || environment == "dev" || environment == null) {
+    if (environment == "Debug" || environment == "dev" || environment == "webcmsdev" ||environment == null) {
       cmsQueryUrl = cmsQueryUrlDev;
     }
     else if (environment == "Staging" || environment == "stg") {
