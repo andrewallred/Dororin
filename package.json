@@ -19,6 +19,7 @@
   },
   "bin": {
     "doro-watch": "./watch.js",
-    "doro-batch": "./batch.js"
+    "doro-batch": "./batch.js",
+    "doro-convert": "./convert.js"
   }
 }
