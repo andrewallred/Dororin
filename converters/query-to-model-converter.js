@@ -6,7 +6,6 @@ const QuickType = require('./quicktype-converter.js');
 const fs = require('fs');
 const util = require('util');
 const _ = require('lodash');
-const detectCharacterEncoding = require('detect-character-encoding');
 
 // Convert fs.readFile into Promise version of same    
 const readFile = util.promisify(fs.readFile);
@@ -25,10 +24,6 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
     console.log(variablesFile);
     if (fs.existsSync(variablesFile)) {
         variablesData = await readFile(variablesFile);
-
-        const charsetMatch = detectCharacterEncoding(variablesData);
-        console.log('file encoding is ' + charsetMatch.encoding);
-
         variablesData = variablesData.toString();
         console.log('query data loaded from disk')
         console.log(variablesData);
