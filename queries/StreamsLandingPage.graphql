@@ -1,0 +1,36 @@
+query StreamsLandingPageQuery($sitecorePath: String, $version: Int) {
+  streamsLandingPage: item(path: $sitecorePath, version: $version) {
+    id
+    url
+    name
+    ... on OnArtLandingPage {
+      title {
+        value
+      }
+      metaTagKeywords {
+        value
+      }
+      metaTagDescription {
+        value
+      }
+    }
+    children {
+      children {
+        id
+        name
+        template {
+          id
+        }
+      }
+    }
+    createdDate: field(name: "__created") {
+      value
+    }
+    updatedDate: field(name: "__updated") {
+      value
+    }
+    sortOrder: field(name: "__sortOrder") {
+      value
+    }
+  }
+}
