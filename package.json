@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node watch.js ./queries ./models",
     "batch": "node batch.js ./queries ./models",
-    "convert": "node convert.js ./queries ./models Debug Essay.graphql"
+    "convert": "node convert.js ./queries ./models webcmsdev Essay.graphql"
   },
   "author": "",
   "license": "ISC",
