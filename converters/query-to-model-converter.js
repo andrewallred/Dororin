@@ -27,6 +27,12 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         variablesData = variablesData.toString();
         console.log('query data loaded from disk')
         console.log(variablesData);
+
+        // check if the file was created on windows, and if so use substr to remove the first character
+        console.log('first character (code) in variables file is ' + variablesData.charCodeAt(0))
+        if (variablesData.charCodeAt(0) == 65279) {
+            variablesData = variablesData.substr(1);
+        }
     }
     let query = {
         query: data.toString(),
