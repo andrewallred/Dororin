@@ -19,16 +19,16 @@ async function postQuery(environment, query) {
     });
 
     let cmsQueryUrl = null;
-    if (environment == "Debug" || environment == "dev") {
+    if (environment == 'Debug' || environment == 'dev') {
       cmsQueryUrl = cmsQueryUrlLocal;
     }
-    else if (environment == "webcmsdev" ||environment == null) {
+    else if (environment == 'webcmsdev' ||environment == null) {
       cmsQueryUrl = cmsQueryUrlDev;
     }
-    else if (environment == "Staging" || environment == "stg") {
+    else if (environment == 'Staging' || environment == 'stg') {
       cmsQueryUrl = cmsQueryUrlStaging;
     }
-    else if (environment == "Release" || environment == "prod" || environment == "production" ) {
+    else if (environment == 'Release' || environment == 'prod' || environment == 'production' ) {
       cmsQueryUrl = cmsQueryUrlProd;
     }
 
