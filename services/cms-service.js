@@ -31,6 +31,8 @@ async function postQuery(environment, query) {
     else if (environment == "Release" || environment == "prod" || environment == "production" ) {
       cmsQueryUrl = cmsQueryUrlProd;
     }
+
+    console.log('cmsQueryUrl is ' + cmsQueryUrl);
     
     await instance.post(cmsQueryUrl, query).then((response) => {
         results = response;
