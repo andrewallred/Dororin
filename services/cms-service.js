@@ -1,7 +1,7 @@
 module.exports = { postQuery };
 
 const https = require('https');
-const axios = require('../node_modules/axios').default;
+const axios = require('axios').default;
 
 const cmsQueryUrlDev = 'https://webcmsdev.metmuseum.org/sitecore/api/graph/items/master';
 const cmsQueryUrlStaging = 'https://webcmsstg.metmuseum.org/sitecore/api/graph/items/master';
