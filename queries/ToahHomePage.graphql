@@ -1,0 +1,13 @@
+query toahHomePage($sitecorePath: String, $version: Int) {
+  toahHomePage: item(path: $sitecorePath, version: $version) {
+    id
+    name
+    sections: children {
+      id
+      name
+      template {
+        name
+      }      
+    }
+  }
+}

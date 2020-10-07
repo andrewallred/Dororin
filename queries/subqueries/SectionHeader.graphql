@@ -1,0 +1,13 @@
+query sectionHeader($sitecorePath: String, $version: Int) {
+  sectionHeader: item(path: $sitecorePath, version: $version) {
+    header: field(name: "header") {
+      value
+    }
+    description: field(name: "description") {
+      value
+    }
+    cta: field(name: "CTA") {
+      value
+    }
+  }
+}

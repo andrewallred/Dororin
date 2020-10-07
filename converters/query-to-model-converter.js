@@ -13,8 +13,7 @@ const writeFile = util.promisify(fs.writeFile);
 
 const logDiagnosticInfo = true;
 
-async function generateModelFromQuery(file, folderQueries, folderModels, environment) {
-
+async function getJsonFromGraphQlAndRestructure(file, folderQueries, environment, sitecorePath) {
     let modelName = file.replace('.graphql', '');
     
     let data = await readFile(folderQueries + file);
@@ -22,7 +21,12 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
     let variablesData = null;
     let variablesFile = folderQueries + file.replace('graphql', 'gex');
     console.log(variablesFile);
-    if (fs.existsSync(variablesFile)) {
+    if (sitecorePath != null) {
+        variablesData = JSON.stringify({
+            sitecorePath: sitecorePath
+        });
+    }
+    else if (fs.existsSync(variablesFile)) {
         variablesData = await readFile(variablesFile);
         variablesData = variablesData.toString();
         console.log('query data loaded from disk')
@@ -68,10 +72,56 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         }
         else {
             // TODO throw an error here
-            console.error("could not find query results in data!!!")
+            console.error("could not find query results in data!!!");
+            return null;
         }
 
-        let nameSpace = 'Dororin.' + modelName;
+        return objectToConvert;
+
+    }
+
+    return null;
+}
+
+async function generateModelFromQuery(file, folderQueries, folderModels, environment) {
+
+    let modelName = file.replace('.graphql', '');
+
+    let objectToConvert = await getJsonFromGraphQlAndRestructure(file, folderQueries, environment);
+
+    if (objectToConvert != null) {
+
+        // TODO refactor
+        if (objectToConvert != null && objectToConvert.sections != null) {
+
+            let folderSubqueries = folderQueries + 'subqueries/';
+
+            for (let i = 0; i < objectToConvert.sections.length; i++) {
+
+                if (objectToConvert.sections[i].template != null && objectToConvert.sections[i].template.name != null) {
+                    let templateName = objectToConvert.sections[i].template.name.split(' ').join('');
+                    let subqueryFile = templateName + '.graphql';
+                    console.log('subqueryFile ' + subqueryFile);
+                    if (fs.existsSync(folderSubqueries + subqueryFile)) {
+                        let sitecorePath = objectToConvert.sections[i].id;
+                        let subqueryObject = await getJsonFromGraphQlAndRestructure(subqueryFile, folderSubqueries, environment, sitecorePath);
+                        console.log('subqueryObject ' + JSON.stringify(subqueryObject));
+                        await convertJsonToCSharpClass(templateName, folderModels, subqueryObject);
+                    }
+                }                
+            }
+        }
+
+        await convertJsonToCSharpClass(modelName, folderModels, objectToConvert);
+    }
+    else {
+        console.log(queryResults.data.errors);
+    }
+
+}
+
+async function convertJsonToCSharpClass(modelName, folderModels, objectToConvert) {
+    let nameSpace = 'Dororin.' + modelName;
 
         console.log('converting query to c# class');
         const { lines: cSharpClassDefinition } = await QuickType.quicktypeJSON(
@@ -112,11 +162,6 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         }
 
         console.log('all done!');
-    }
-    else {
-        console.log(queryResults.data.errors);
-    }
-
 }
 
 // TODO: possibly make this more abstract instead of only working in the "value" case
