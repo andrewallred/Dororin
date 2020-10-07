@@ -121,47 +121,48 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 }
 
 async function convertJsonToCSharpClass(modelName, folderModels, objectToConvert) {
-    let nameSpace = 'Dororin.' + modelName;
+    
+    let nameSpace = 'Dororin.' + modelName.charAt(0).toUpperCase() + modelName.slice(1);
 
-        console.log('converting query to c# class');
-        const { lines: cSharpClassDefinition } = await QuickType.quicktypeJSON(
-            "csharp",
-            modelName,
-            nameSpace,
-            JSON.stringify(objectToConvert)
-        );
+    console.log('converting query to c# class');
+    const { lines: cSharpClassDefinition } = await QuickType.quicktypeJSON(
+        "csharp",
+        modelName,
+        nameSpace,
+        JSON.stringify(objectToConvert)
+    );
 
-        console.log('saving c# class');
+    console.log('saving c# class');
 
-        // note, we are using the OS specific new line here so that git doesn't get confused
-        // may not work as we like cross-OS though...
-        let classDefinition = cSharpClassDefinition.join(require('os').EOL);
-        
-        let modelFilePath = folderModels + modelName + '.cs';
-        let writeModel = false;
-        if (!fs.existsSync(modelFilePath)) {
-            console.log('model does not exist');
-            writeModel = true;
+    // note, we are using the OS specific new line here so that git doesn't get confused
+    // may not work as we like cross-OS though...
+    let classDefinition = cSharpClassDefinition.join(require('os').EOL);
+    
+    let modelFilePath = folderModels + modelName + '.cs';
+    let writeModel = false;
+    if (!fs.existsSync(modelFilePath)) {
+        console.log('model does not exist');
+        writeModel = true;
+    }
+    else {
+        let existingModelDefinition = await readFile(modelFilePath);
+        writeModel = existingModelDefinition.toString() != classDefinition;
+        if (logDiagnosticInfo && writeModel) {
+            console.log('existing model');
+            console.log(existingModelDefinition.toString());
+            console.log('new model');
+            console.log(classDefinition);
         }
-        else {
-            let existingModelDefinition = await readFile(modelFilePath);
-            writeModel = existingModelDefinition.toString() != classDefinition;
-            if (logDiagnosticInfo && writeModel) {
-                console.log('existing model');
-                console.log(existingModelDefinition.toString());
-                console.log('new model');
-                console.log(classDefinition);
-            }
-        }
-        if (writeModel) {
-            console.log('writing the model');
-            writeFile(modelFilePath, classDefinition);
-        }
-        else {
-            console.log('not writing to disk, no changes to the model');
-        }
+    }
+    if (writeModel) {
+        console.log('writing the model');
+        writeFile(modelFilePath, classDefinition);
+    }
+    else {
+        console.log('not writing to disk, no changes to the model');
+    }
 
-        console.log('all done!');
+    console.log('all done!');
 }
 
 // TODO: possibly make this more abstract instead of only working in the "value" case
