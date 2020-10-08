@@ -50,7 +50,7 @@ async function getJsonFromGraphQlAndRestructure(file, folderQueries, environment
 
     if (logDiagnosticInfo) {
         console.log('query results for ' + modelName);
-        console.log(queryResults.data.data);
+        console.log(JSON.stringify(queryResults.data.data));
     }
 
     console.log('query successful');
@@ -166,7 +166,7 @@ async function convertJsonToCSharpClass(modelName, folderModels, objectToConvert
 }
 
 // TODO: possibly make this more abstract instead of only working in the "value" case
-function restructureObject(obj, key) {
+function restructureObject(obj) {
     if (obj != null) {
         if (Object.keys(obj).length == 1 && Object.keys(obj)[0] == 'value') {
             obj = obj.value;
@@ -176,9 +176,12 @@ function restructureObject(obj, key) {
                 // key: the name of the object key
                 // index: the ordinal position of the key within the object 
                 if (obj[currentKey] != null && Array.isArray(obj[currentKey])) {
-                    obj[currentKey].forEach(function(item) {
-                        obj[currentKey][index] = restructureObject(item, currentKey);
-                    });
+                    let i = 0;
+                    while (i < obj[currentKey].length) {
+                        let item = obj[currentKey][i];
+                        obj[currentKey][i] = restructureObject(item, currentKey);
+                        i++;
+                    }
                 } else {
                     obj[currentKey] = restructureObject(obj[currentKey], currentKey);
                 }
