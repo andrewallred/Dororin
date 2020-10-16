@@ -91,8 +91,12 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 
     if (objectToConvert != null) {
 
-        // TODO refactor
-        if (objectToConvert != null && objectToConvert.sections != null) {
+        // TODO review and refactor
+        if (objectToConvert != null && objectToConvert.components != null && objectToConvert.components.length > 0 && objectToConvert.components[0].sections != null) {
+            objectToConvert.sections = objectToConvert.components[0].sections;            
+        }
+
+        if (objectToConvert.sections != null) {
 
             let folderSubqueries = folderQueries + 'subqueries/';
 
