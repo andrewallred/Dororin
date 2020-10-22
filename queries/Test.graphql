@@ -1,4 +1,4 @@
-query EssayQuery($sitecorePath: String, $version: Int) {
+﻿query EssayQuery($sitecorePath: String, $version: Int) {
   essay: item(path: $sitecorePath, version: $version) {
       id
       title:field(name: "title") {
@@ -6,7 +6,7 @@ query EssayQuery($sitecorePath: String, $version: Int) {
       }
       body: field(name: "body") {
         value
-      }  
+      }
       citation: field(name: "citation") {
         value
       }

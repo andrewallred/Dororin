@@ -102,6 +102,15 @@ namespace Dororin.Essay
 
         [JsonProperty("title")]
         public string Title { get; set; }
+
+        [JsonProperty("createdDate")]
+        public object CreatedDate { get; set; }
+
+        [JsonProperty("url")]
+        public object Url { get; set; }
+
+        [JsonProperty("pullQuote")]
+        public string PullQuote { get; set; }
     }
 
     public partial class SecondaryEssays
@@ -141,6 +150,7 @@ namespace Dororin.Essay
         {
             if (reader.TokenType == JsonToken.Null) return null;
             var value = serializer.Deserialize<string>(reader);
+            if (String.IsNullOrEmpty(value?.ToString())) value = default(long).ToString();
             long l;
             if (Int64.TryParse(value, out l))
             {

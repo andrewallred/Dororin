@@ -1,0 +1,29 @@
+query featuredContent($sitecorePath: String, $version: Int) {
+  featuredContent: item(path: $sitecorePath, version: $version) {
+    id
+    ... on FeaturedContent {
+      header {
+        value
+      }
+      content: children {
+        id
+        name
+        template {
+          name: name
+        }
+        ... on Content {
+          id
+          header {
+            value
+          }
+          description {
+            value
+          }
+          image {
+            value
+          }
+        }
+      }
+    }
+  }
+}

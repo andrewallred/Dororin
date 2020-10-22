@@ -1,0 +1,27 @@
+query jumpLinkBanner($sitecorePath: String, $version: Int) {
+  jumpLinkBanner: item(path: $sitecorePath, version: $version) {
+    header: field(name: "header") {
+      value
+    }
+    description: field(name: "description") {
+      value
+    }
+    ... on JumpLinkBanner {    
+      anchorLink1 {
+        targetItem {
+          url
+        }
+      }
+      anchorLink2 {
+        targetItem {
+          url
+        }
+      }
+      anchorLink3 {
+        targetItem {
+          url
+        }
+      }
+    }
+  }
+}

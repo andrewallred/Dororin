@@ -1,0 +1,52 @@
+query toahHomePage($sitecorePath: String, $version: Int) {
+  toahHomePage: item(path: $sitecorePath, version: $version) {
+    id
+    name
+    sections: children {
+      __typename
+      id
+      name
+      template {
+        name
+      }
+      ...subqueryFields
+    }
+  }
+}
+query jumpLinkBanner($sitecorePath: String, $version: Int) {
+  jumpLinkBanner: item(path: $sitecorePath, version: $version) {
+    header: field(name: "header") {
+      value
+    }
+    description: field(name: "description") {
+      value
+    }
+    ...subqueryFields
+  }
+}
+fragment subqueryFields on JumpLinkBanner {
+  cTA1 {
+    value
+  }
+  cTA2 {
+    value
+  }
+  cTA3 {
+    value
+  }
+  anchorLink1 {
+    targetItem {
+      url
+    }
+  }
+  anchorLink2 {
+    targetItem {
+      url
+    }
+  }
+  anchorLink3 {
+    targetItem {
+      url
+    }
+  }
+}

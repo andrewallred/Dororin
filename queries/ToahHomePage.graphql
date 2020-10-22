@@ -2,12 +2,19 @@ query toahHomePage($sitecorePath: String, $version: Int) {
   toahHomePage: item(path: $sitecorePath, version: $version) {
     id
     name
-    sections: children {
+    components: children {
       id
       name
       template {
         name
-      }      
+      }
+      sections: children {
+        id
+        name
+        template {
+          name
+        }
+      }
     }
   }
 }

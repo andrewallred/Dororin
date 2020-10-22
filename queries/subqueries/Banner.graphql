@@ -1,0 +1,19 @@
+query banner($sitecorePath: String, $version: Int) {
+  banner: item(path: $sitecorePath, version: $version) {
+    name 
+    header: field(name: "header") {
+      value
+    }
+    description: field(name: "description") {
+      value
+    }
+    ... on Banner {
+      backgroundImage {
+        src
+      }
+      backgroundColor {
+        value
+      }
+    }
+  }
+}

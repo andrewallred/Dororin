@@ -30,10 +30,10 @@ namespace Dororin.EssaysListPaginated
     public partial class Item
     {
         [JsonProperty("code")]
-        public string Code { get; set; }
+        public object Code { get; set; }
 
         [JsonProperty("title")]
-        public string Title { get; set; }
+        public object Title { get; set; }
 
         [JsonProperty("createdDate")]
         public string CreatedDate { get; set; }

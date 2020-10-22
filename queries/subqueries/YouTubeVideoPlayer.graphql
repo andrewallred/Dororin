@@ -1,0 +1,14 @@
+query youTubeVideoPlayer($sitecorePath: String, $version: Int) {
+  youTubeVideoPlayer: item(path: $sitecorePath, version: $version) {
+    id
+    ... on YouTubeVideoPlayer {
+      id
+      template {
+        name
+      }
+      youTubeID {
+        value
+      }
+    }
+  }
+}
