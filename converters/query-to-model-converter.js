@@ -91,30 +91,7 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 
     if (objectToConvert != null) {
 
-        // TODO review and refactor
-        if (objectToConvert != null && objectToConvert.components != null && objectToConvert.components.length > 0 && objectToConvert.components[0].sections != null) {
-            objectToConvert.sections = objectToConvert.components[0].sections;            
-        }
-
-        if (objectToConvert.sections != null) {
-
-            let folderSubqueries = folderQueries + 'subqueries/';
-
-            for (let i = 0; i < objectToConvert.sections.length; i++) {
-
-                if (objectToConvert.sections[i].template != null && objectToConvert.sections[i].template.name != null) {
-                    let templateName = objectToConvert.sections[i].template.name.split(' ').join('');
-                    let subqueryFile = templateName + '.graphql';
-                    console.log('subqueryFile ' + subqueryFile);
-                    if (fs.existsSync(folderSubqueries + subqueryFile)) {
-                        let sitecorePath = objectToConvert.sections[i].id;
-                        let subqueryObject = await getJsonFromGraphQlAndRestructure(subqueryFile, folderSubqueries, environment, sitecorePath);
-                        console.log('subqueryObject ' + JSON.stringify(subqueryObject));
-                        await convertJsonToCSharpClass(templateName, folderModels, subqueryObject);
-                    }
-                }                
-            }
-        }
+        objectToConvert = await runSubqueriesForObject(objectToConvert, folderQueries, folderModels, environment);
 
         await convertJsonToCSharpClass(modelName, folderModels, objectToConvert);
     }
@@ -122,6 +99,35 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
         console.log(queryResults.data.errors);
     }
 
+}
+
+async function runSubqueriesForObject(objectToConvert, folderQueries, folderModels, environment) {
+    // TODO review and refactor
+    if (objectToConvert != null && objectToConvert.components != null && objectToConvert.components.length > 0 && objectToConvert.components[0].sections != null) {
+        objectToConvert.sections = objectToConvert.components[0].sections;            
+    }
+
+    if (objectToConvert.sections != null) {
+
+        let folderSubqueries = folderQueries + 'subqueries/';
+
+        for (let i = 0; i < objectToConvert.sections.length; i++) {
+
+            if (objectToConvert.sections[i].template != null && objectToConvert.sections[i].template.name != null) {
+                let templateName = objectToConvert.sections[i].template.name.split(' ').join('');
+                let subqueryFile = templateName + '.graphql';
+                console.log('subqueryFile ' + subqueryFile);
+                if (fs.existsSync(folderSubqueries + subqueryFile)) {
+                    let sitecorePath = objectToConvert.sections[i].id;
+                    let subqueryObject = await getJsonFromGraphQlAndRestructure(subqueryFile, folderSubqueries, environment, sitecorePath);
+                    console.log('subqueryObject ' + JSON.stringify(subqueryObject));
+                    await convertJsonToCSharpClass(templateName, folderModels, subqueryObject);
+                }
+            }                
+        }
+    }
+
+    return objectToConvert;
 }
 
 async function convertJsonToCSharpClass(modelName, folderModels, objectToConvert) {
