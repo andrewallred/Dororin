@@ -102,23 +102,21 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 }
 
 async function runSubqueriesForObject(objectToConvert, folderQueries, folderModels, environment) {
-    // TODO review and refactor
-    if (objectToConvert != null && objectToConvert.components != null && objectToConvert.components.length > 0 && objectToConvert.components[0].sections != null) {
-        objectToConvert.sections = objectToConvert.components[0].sections;            
-    }
 
-    if (objectToConvert.sections != null) {
+    objectToConvert = flattenComponents(objectToConvert);
+    
+    if (objectToConvert.components != null) {
 
         let folderSubqueries = folderQueries + 'subqueries/';
 
-        for (let i = 0; i < objectToConvert.sections.length; i++) {
+        for (let i = 0; i < objectToConvert.components.length; i++) {
 
-            if (objectToConvert.sections[i].template != null && objectToConvert.sections[i].template.name != null) {
-                let templateName = objectToConvert.sections[i].template.name.split(' ').join('');
+            if (objectToConvert.components[i].template != null && objectToConvert.components[i].template.name != null) {
+                let templateName = objectToConvert.components[i].template.name.split(' ').join('');
                 let subqueryFile = templateName + '.graphql';
                 console.log('subqueryFile ' + subqueryFile);
                 if (fs.existsSync(folderSubqueries + subqueryFile)) {
-                    let sitecorePath = objectToConvert.sections[i].id;
+                    let sitecorePath = objectToConvert.components[i].id;
                     let subqueryObject = await getJsonFromGraphQlAndRestructure(subqueryFile, folderSubqueries, environment, sitecorePath);
                     console.log('subqueryObject ' + JSON.stringify(subqueryObject));
                     await convertJsonToCSharpClass(templateName, folderModels, subqueryObject);
@@ -173,6 +171,36 @@ async function convertJsonToCSharpClass(modelName, folderModels, objectToConvert
     }
 
     console.log('all done!');
+}
+
+function flattenComponents(obj) {
+
+    let t = obj;
+    let hasComponents = false;
+    while (t != null && t.components != null) {
+        console.log('descend');
+        if (t.components.length == 1 && t.components[0].components != null) {
+            t = t.components[0];
+        } else {
+            t = t.components;
+        }        
+        hasComponents = true;
+    }
+
+    if (hasComponents) {
+        obj.components = t;
+    }
+
+    console.log('components');
+    console.log(obj.components);
+
+    // // TODO review and refactor
+    // if (obj != null && obj.components != null && obj.components.length > 0 && obj.components[0].components != null) {
+    //     obj.components = obj.components[0].components;            
+    // } else if (obj != null && obj.components != null && obj.components.components != null && obj.components.components.children != null && obj.components.components.children.length > 0) {
+    //     obj.components = obj.components.components.children;            
+    // }
+    return obj;
 }
 
 // TODO: possibly make this more abstract instead of only working in the "value" case
