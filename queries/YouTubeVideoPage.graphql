@@ -1,33 +1,15 @@
-query youTubeVideoPage($sitecorePath: String, $version: Int) {
-  youTubeVideoPage: item(path: $sitecorePath, version: $version) {
+query youTubeVideoPage($sitecorePath: String) {  
+  youTubeVideoPage: item(path: $sitecorePath) {
     id
+    name
     ... on YouTubeVideoPage {
-      name
       youTubeID {
         value
       }
-      verticals {
-        targetItems {
-          name
-          url
-        }
-      }
-      topics {
-        targetItems {
-          name
-          url
-        }
-      }
-      components:children {
-        sections:children {
-          ... on YouTubeVideoPlayer {
-            id
-            template {
-              name
-            }
-          }
-        }
-      }
+      componentsLocation {
+        id
+        url
+      } 
     }
   }
 }

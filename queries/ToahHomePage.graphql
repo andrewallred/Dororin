@@ -8,7 +8,7 @@ query toahHomePage($sitecorePath: String, $version: Int) {
       template {
         name
       }
-      sections: children {
+      components: children {
         id
         name
         template {

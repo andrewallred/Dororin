@@ -1,0 +1,12 @@
+query templateComponents($sitecorePath: String, $version: Int) {
+  templateComponents: item(path: $sitecorePath, version: $version) {
+    id
+    components: children {
+      id
+      name
+      template {
+        name
+      }
+    }
+  }
+}
