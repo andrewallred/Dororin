@@ -104,10 +104,29 @@ async function generateModelFromQuery(file, folderQueries, folderModels, environ
 async function runSubqueriesForObject(objectToConvert, folderQueries, folderModels, environment) {
 
     objectToConvert = flattenComponents(objectToConvert);
+
+    let folderSubqueries = folderQueries + 'subqueries/';
+
+    if (objectToConvert.componentsLocation != null) {
+
+        let templateComponentsQuery = folderQueries + 'subqueries/TemplateComponents.graphql';
+
+        if (fs.existsSync(templateComponentsQuery)) {
+            let sitecorePath = '/sitecore/content/Home' + objectToConvert.componentsLocation.url.replace(/-/g, " ");;
+            console.log('templateComponents path ' + sitecorePath);
+            let subqueryObject = await getJsonFromGraphQlAndRestructure("TemplateComponents.graphql", folderSubqueries, environment, sitecorePath);
+            console.log('templateComponents object ' + JSON.stringify(subqueryObject));
+
+            objectToConvert.components = subqueryObject.components;
+
+            for (let i = 0; i < objectToConvert.components.length; i++) {
+                objectToConvert.components[i].id = objectToConvert.id;
+            }
+        }
+
+    }
     
     if (objectToConvert.components != null) {
-
-        let folderSubqueries = folderQueries + 'subqueries/';
 
         for (let i = 0; i < objectToConvert.components.length; i++) {
 
