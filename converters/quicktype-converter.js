@@ -27,6 +27,7 @@ async function quicktypeJSON(targetLanguage, typeName, nameSpace, jsonString) {
       lang: targetLanguage,
       combineClasses: false,
       inferIntegerStrings: false,
+      inferEnums: false,
       rendererOptions: {
         namespace: nameSpace
       }
