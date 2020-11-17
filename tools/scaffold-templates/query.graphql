@@ -1,0 +1,12 @@
+query queryName($sitecorePath: String, $version: Int) {
+  queryName: item(path: $sitecorePath, version: $version) {
+    id
+    name
+    components: children {
+      id
+      template {
+        name
+      }
+    }
+  }
+}

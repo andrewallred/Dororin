@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "node watch.js ./queries ./models",
     "batch": "node batch.js ./queries ./models",
-    "convert": "node convert.js ./queries ./models webcmsdev Essay.graphql"
+    "convert": "node convert.js ./queries ./models webcmsdev ExhibitionCarousel.graphql",
+    "scaffold": "node scaffold.js --root ./playground/ --name HomepageEmailSignup --subquery"
   },
   "author": "",
   "license": "ISC",
@@ -15,11 +16,13 @@
     "axios": "^0.20.0",
     "lodash": "^4.17.20",
     "quicktype": "^15.0.256",
-    "quicktype-core": "^6.0.69"
+    "quicktype-core": "^6.0.69",
+    "yargs": "^16.1.1"
   },
   "bin": {
     "doro-watch": "./watch.js",
     "doro-batch": "./batch.js",
-    "doro-convert": "./convert.js"
+    "doro-convert": "./convert.js",
+    "doro-scaffold": "./scaffold.js"
   }
 }
