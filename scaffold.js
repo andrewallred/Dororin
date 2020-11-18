@@ -19,6 +19,11 @@ const argv = yargs
             alias: 'name',
             type: 'string',
         },
+        project: {
+            description: 'the project to add the files to',
+            alias: 'name',
+            type: 'string',
+        },
         subQuery: {
             alias: 'subquery'
         }
@@ -37,12 +42,14 @@ function main() {
 
     let file = argv.name;
     let isSubquery = argv.subquery != undefined;
+    let project = argv.project;
     console.log('root folder is ' + rootFolder);
     console.log('component name is ' + argv.name);
     console.log('isSubquery is ' + isSubquery);
+    console.log('project is ' + project);
 
     if (rootFolder != null) {
-         scaffoldBuilder.scaffoldQueryModelAndView(file, rootFolder, isSubquery);        
+         scaffoldBuilder.scaffoldQueryModelAndView(file, rootFolder, project, isSubquery);        
     }
     else {
         console.log('please pass an existing root folder to dororin');
