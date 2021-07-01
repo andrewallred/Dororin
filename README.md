@@ -37,7 +37,7 @@ To ensure Dororin pulls the best possible data for your model, you can specify a
 
 ```
 {
-"sitecorePath": "/sitecore/content/Resources/Content/Collections/Timeline/Essays/2020/03/03/00/07/african-rock-art"
+"sitecorePath": "/sitecore/path/here"
 }
 ```
 
