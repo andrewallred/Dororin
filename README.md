@@ -29,7 +29,7 @@ Doro-Batch creates models for all queries in the chosen folder.
 doro-batch ../queries ../models Debug
 ```
 
-In both examples above the Debug parameter tells Dororin to run its queries against the dev CMS (https://webcmsdev.metmuseum.org). The possible choices are: Debug, dev, Staging, stg, Release, prod, and production. If no value is passed Dororin will default to using the dev CMS.
+In both examples above the Debug parameter tells Dororin to run its queries against the dev CMS (cmsQueryUrlDev in your .env file). The possible choices are: Debug, dev, Staging, stg, Release, prod, and production. If no value is passed Dororin will default to using the dev CMS.
 
 ### Passing Variables to a Dororin Query
 

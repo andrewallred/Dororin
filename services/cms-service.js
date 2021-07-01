@@ -3,10 +3,10 @@ module.exports = { postQuery };
 const https = require('https');
 const axios = require('axios').default;
 
-const cmsQueryUrlDev = 'https://webcmsdev.metmuseum.org/sitecore/api/graph/items/master';
-const cmsQueryUrlStaging = 'https://webcmsstg.metmuseum.org/sitecore/api/graph/items/master';
-const cmsQueryUrlProd = 'https://webcms.metmuseum.org/sitecore/api/graph/items/master';
-const cmsQueryUrlLocal = 'http://webcmslocal/sitecore/api/graph/items/master';
+const cmsQueryUrlDev = process.env.cmsQueryUrlDev;
+const cmsQueryUrlStaging = process.env.cmsQueryUrlStaging;
+const cmsQueryUrlProd = process.env.cmsQueryUrlProd;
+const cmsQueryUrlLocal = process.env.cmsQueryUrlLocal;
 
 async function postQuery(environment, query) {
 
