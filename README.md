@@ -33,7 +33,7 @@ In both examples above the Debug parameter tells Dororin to run its queries agai
 
 ### Passing Variables to a Dororin Query
 
-To ensure Dororin pulls the best possible data for your model, you can specify a variable file (.gec) that will be loaded and used when it's associated query is run. Below you will see Essay.gec, which is used to specify the sitecorePath variable in the Essay.graphql query.
+To ensure Dororin pulls the best possible data for your model, you can specify a variable file (.gec) that will be loaded and used when its associated query is run. Below you will see Essay.gec, which is used to specify the sitecorePath variable in the Essay.graphql query.
 
 ```
 {
