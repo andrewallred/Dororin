@@ -12,7 +12,7 @@ Dororin converts graphql queries to C# classes, running the queries against a Me
 
 You can install Dororin using NPM as so
 ```
-npm install metmuseum/Dororin -g
+npm install andrewallred/Dororin -g
 ```
 
 Dororin currently has two commands, doro-watch and doro-batch.
@@ -33,7 +33,7 @@ In both examples above the Debug parameter tells Dororin to run its queries agai
 
 ### Passing Variables to a Dororin Query
 
-To ensre Dororin pulls the best possible data for your model, you can specify a variable file (.gec) that will be loaded and used when it's associated query is run. Below you will see Essay.gec, which is used to specify the sitecorePath variable in the Essay.graphql query.
+To ensure Dororin pulls the best possible data for your model, you can specify a variable file (.gec) that will be loaded and used when it's associated query is run. Below you will see Essay.gec, which is used to specify the sitecorePath variable in the Essay.graphql query.
 
 ```
 {
