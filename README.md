@@ -1,12 +1,12 @@
 # Dororin
  
-Quick Proof of Concept to generate C# classes from GraphQL queries.
+Quick Proof of Concept to generate C# classes from GraphQL queries against a CMS.
 
 ![Dororin](dororin.jpeg)
 
 ## What does Dororin do?
 
-Dororin converts graphql queries to C# classes, running the queries against a Met CMS (dev, staging, or prod) and then using QuickType to turn the results into models.
+Dororin converts GraphQL queries to C# classes, running the queries against a CMS (dev, staging, or prod) and then using QuickType to turn the results into models.
 
 ## Using Dororin
 
@@ -44,3 +44,7 @@ To ensure Dororin pulls the best possible data for your model, you can specify a
 ## Developing Dororin Locally
 
 TODO
+
+## History
+
+Dororin was originally written as an experimental improvement project while at the Metropolitan Museum of Art and is shared here for anyone interested in alternative approaches to use of Sitecore's CMS product or creative uses of GraphQL.
